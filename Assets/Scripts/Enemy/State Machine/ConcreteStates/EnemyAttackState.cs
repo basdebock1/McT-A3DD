@@ -18,6 +18,8 @@ public class EnemyAttackState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.animator.Play("Base Layer.Stomp");
+        enemy.MoveEnemy(Vector3.zero);
     }
 
     public override void ExitState()
@@ -28,8 +30,8 @@ public class EnemyAttackState : EnemyState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        enemy.animator.Play("Base Layer.Stomp");
         enemy.Attack();
-
         if (!enemy.IsWithinStrikingDistance)
         {
             enemyStateMachine.ChangeState(enemy.WanderState);

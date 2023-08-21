@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITrigger
     public bool WalkPointSet { get; set; }
     public float walkPointRange;
 
+    public Animator animator;
 
     //tut
     [field: SerializeField] public float MaxHealth { get; set; }
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITrigger
 
         player = GameObject.Find("PlayerCapsule").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -79,6 +81,8 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITrigger
     }
     public enum AnimationTriggerType
     {
+        EnemyIdle,
+        EnemyAttacking,
         EnemyDamaged,
         PlayFootstepSound
     }

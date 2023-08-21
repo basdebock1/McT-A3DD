@@ -17,6 +17,7 @@ public class EnemyChaseState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.animator.Play("Base Layer.Idle");
     }
 
     public override void ExitState()
@@ -27,10 +28,22 @@ public class EnemyChaseState : EnemyState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        ChasePlayer();
+        if (enemy.IsWithinStrikingDistance)
+        {
+            enemyStateMachine.ChangeState(enemy.AttackState);
+        }
+        else if(!enemy.IsAggroed) {
+            enemyStateMachine.ChangeState(enemy.WanderState);
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+    private void ChasePlayer()
+    {
+        enemy.agent.SetDestination(GameObject.FindGameObjectWithTag("Player").transform.position);
     }
 }

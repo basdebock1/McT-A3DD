@@ -31,6 +31,7 @@ public class EnemyWanderState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.animator.Play("Base Layer.Idle");
     }
 
     public override void ExitState()
@@ -44,7 +45,11 @@ public class EnemyWanderState : EnemyState
 
         Patroling();
 
-        if (enemy.IsWithinStrikingDistance)
+        if (enemy.IsAggroed)
+        {
+            enemyStateMachine.ChangeState(enemy.ChaseState);
+        }
+        else if (enemy.IsWithinStrikingDistance)
         {
             enemyStateMachine.ChangeState(enemy.AttackState);
         }
